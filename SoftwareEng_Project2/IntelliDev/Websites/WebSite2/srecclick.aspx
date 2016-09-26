@@ -1,15 +1,15 @@
-﻿<%@ Page Language="C#" AutoEventWireup="true" CodeFile="rform.aspx.cs" Inherits="rform" %>
+﻿<%@ Page Language="C#" AutoEventWireup="true" CodeFile="srecclick.aspx.cs" Inherits="srecclick" %>
 
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <link rel="stylesheet" type="text/css" href="style.css" />
-<title>Reception Form</title>
+<title>Received laptops details</title>
     <style type="text/css">
         .style1
         {
-            width: 295px;
+            width: 218px;
         }
     </style>
 </head>
@@ -24,7 +24,7 @@
         
         <div id="menu">
         	<ul>
-            	<li class="menuitem"><a href="receptionist.aspx">Home</a></li>
+            	<li class="menuitem"><a href="supervisor.aspx">Received Laptops</a></li>
                 <li class="menuitem"><a href="#">Help</a></li>
                 <li class="menuitem"><a href="#">News</a></li>
             </ul>
@@ -39,16 +39,17 @@
                 <h3>Links</h3>
                         
                 <ul>
-                    <li><a href="receptionist.aspx">Reception Home</a></li>
-                    <li><a href="rlist.aspx">Reception list</a></li>
+                    <li><a href="supervisor.aspx">Received laptops</a></li>
+                    <li><a href="sfix.aspx">Fixed laptops</a></li>
+              
                 </ul>
-
                 <br />
                 <h3>Top 3</h3>
                         <br /><br /><br /><br />
                         <hr />
                     <br />
                     <asp:Calendar ID="Calendar1" runat="server"></asp:Calendar>
+                
 </div>
                 
                 
@@ -64,37 +65,12 @@
         <div id="content_top"></div>
         <div id="content_main">
         	
-        &nbsp;<table style="width:100%; border:0px;" >
+        	&nbsp;<table style="width:100%;">
                 <tr>
                     <td class="style1">
                         Reception Code</td>
                     <td>
-                        <asp:TextBox ID="TextBox1" runat="server" Enabled="False" EnableTheming="True" 
-                            ReadOnly="True">98334441</asp:TextBox>
-                    </td>
-                    
-                </tr>
-                <tr>
-                    <td class="style1">
-                        Customer Name</td>
-                    <td>
-                        <asp:TextBox ID="TextBox2" runat="server"></asp:TextBox>
-                    </td>
-                    
-                </tr>
-                <tr>
-                    <td class="style1">
-                        Customer Lastname</td>
-                    <td>
-                        <asp:TextBox ID="TextBox3" runat="server"></asp:TextBox>
-                    </td>
-                    
-                </tr>
-                <tr>
-                    <td class="style1">
-                        Laptop Serial</td>
-                    <td>
-                        <asp:TextBox ID="TextBox4" runat="server"></asp:TextBox>
+                        <asp:Label ID="Label1" runat="server" Text="98334441"></asp:Label>
                     </td>
                     
                 </tr>
@@ -102,42 +78,63 @@
                     <td class="style1">
                         Laptop Model</td>
                     <td>
-                        <asp:DropDownList ID="DropDownList1" runat="server">
-                            <asp:ListItem>Sony</asp:ListItem>
-                            <asp:ListItem>Toshiba</asp:ListItem>
-                            <asp:ListItem>Asus</asp:ListItem>
-                            <asp:ListItem>Dell</asp:ListItem>
-                            <asp:ListItem>Apple</asp:ListItem>
-                            <asp:ListItem>Lenovo</asp:ListItem>
-                            <asp:ListItem>MSI</asp:ListItem>
+                        <asp:Label ID="Label2" runat="server" Text="Sony NS-140"></asp:Label>
+                    </td>
+                    
+                </tr>
+                <tr>
+                    <td class="style1">
+                        Problem List</td>
+                    <td>
+                        <asp:DropDownList ID="DropDownList1" runat="server" AutoPostBack="True" 
+                            DataSourceID="LinqDataSource1" DataTextField="prob_title" 
+                            DataValueField="prob_id" Height="27px" Width="115px" 
+                            onselectedindexchanged="DropDownList1_SelectedIndexChanged">
                         </asp:DropDownList>
+                        <asp:LinqDataSource ID="LinqDataSource1" runat="server" 
+                            ContextTypeName="DataClassesDataContext" EntityTypeName="" 
+                            Select="new (prob_id, prob_title)" TableName="Problems">
+                        </asp:LinqDataSource>
                     </td>
                     
                 </tr>
                 <tr>
                     <td class="style1">
-                        Contact Tel.</td>
+                        Sup. Desc</td>
                     <td>
-                        <asp:TextBox ID="TextBox5" runat="server"></asp:TextBox>
+                        <asp:TextBox ID="TextBox1" runat="server" Height="61px" TextMode="MultiLine" 
+                            Width="230px"></asp:TextBox>
+                        <br />
                     </td>
                     
                 </tr>
                 <tr>
                     <td class="style1">
-                        Description</td>
+                        Detected Problem(s)</td>
                     <td>
-                        <textarea id="TextArea1" cols="20" name="S1" rows="2"></textarea></td>
+                        
+                    
+                        <asp:ListBox ID="ListBox1" runat="server" Rows="7" Width="231px">
+                        </asp:ListBox>
+                            <asp:ImageButton ImageUrl="~/images/cross.jpg" ID="ImageButton2" runat="server" 
+                            Height="47px" Width="47px" onclick="ImageButton2_Click" />
+                        
+                        <br />
+                        
+                    </td>
                     
                 </tr>
+                
                 <tr>
-                    <td class="style1" >
-                      </td>
+                <td class="style1">
+
+                    &nbsp;</td>
+                <td>
+                <center>
+                    <asp:Button ID="Button2" runat="server" Text="Submit" onclick="Button2_Click" />
+                    </center>
+                </td>
                 
-                <td class="style1" >
-                        <asp:Button ID="Button2" runat="server" Text="Submit"/></td>
-                
-                <td class="style1" >
-                     </td>   
                 </tr>
             </table>
             </div>

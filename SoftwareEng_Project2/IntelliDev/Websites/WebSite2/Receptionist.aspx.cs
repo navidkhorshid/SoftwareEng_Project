@@ -9,6 +9,7 @@ public partial class Receptionist : System.Web.UI.Page
 {
     protected void Page_Load(object sender, EventArgs e)
     {
-
+        int rid = (int)Session["rid"];
+        Session["rid"] = rid;
     }
 }

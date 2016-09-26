@@ -60,7 +60,21 @@
         <div id="content_top"></div>
         <div id="content_main">
         <center>
-        &nbsp;<img src="images/diagram.jpg" />
+        &nbsp;
+            <asp:Chart ID="Chart1" runat="server" DataSourceID="SqlDataSource1">
+                <Series>
+                    <asp:Series Name="Series1" XValueMember="st_id" YValueMembers="Expr1">
+                    </asp:Series>
+                </Series>
+                <ChartAreas>
+                    <asp:ChartArea Name="ChartArea1">
+                    </asp:ChartArea>
+                </ChartAreas>
+            </asp:Chart>
+            <asp:SqlDataSource ID="SqlDataSource1" runat="server" 
+                ConnectionString="<%$ ConnectionStrings:OTAConnectionString %>" 
+                SelectCommand="SELECT SUM(Problems.prob_point) AS Expr1, st_form.st_id FROM st_form INNER JOIN receptions ON st_form.rec_code = receptions.rec_code INNER JOIN laptop ON receptions.lap_serial = laptop.lap_serial INNER JOIN lap_prob ON laptop.lap_serial = lap_prob.lap_serial INNER JOIN Problems ON lap_prob.prob_id = Problems.prob_id WHERE (lap_prob.lapprob_fix = 1) GROUP BY st_form.st_id">
+            </asp:SqlDataSource>
 
             </center>	
         </div>
