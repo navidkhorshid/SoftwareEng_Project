@@ -1,0 +1,97 @@
+﻿<?xml version="1.0" encoding="utf-8"?><Database Name="Database" Class="DataClassesDataContext" xmlns="http://schemas.microsoft.com/linqtosql/dbml/2007">
+  <Connection Mode="WebSettings" ConnectionString="Data Source=.\SQLEXPRESS;AttachDbFilename=|DataDirectory|\Database.mdf;Integrated Security=True;User Instance=True" SettingsObjectName="System.Configuration.ConfigurationManager.ConnectionStrings" SettingsPropertyName="DatabaseConnectionString" Provider="System.Data.SqlClient" />
+  <Table Name="dbo.LEGAL_CUSTOMER" Member="LEGAL_CUSTOMERs">
+    <Type Name="LEGAL_CUSTOMER">
+      <Column Name="LCST_ID" Type="System.String" DbType="NChar(10) NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="LCST_CONAME" Type="System.String" DbType="NVarChar(15) NOT NULL" CanBeNull="false" />
+      <Column Name="LCST_ADD" Type="System.String" DbType="NVarChar(50) NOT NULL" CanBeNull="false" />
+      <Column Name="LCST_TEL" Type="System.String" DbType="NChar(10) NOT NULL" CanBeNull="false" />
+      <Column Name="LCST_EMAIL" Type="System.String" DbType="NVarChar(30)" CanBeNull="true" />
+      <Association Name="LEGAL_CUSTOMER_REAL_CUSTOMER" Member="REAL_CUSTOMERs" ThisKey="LCST_ID" OtherKey="LCST_ID" Type="REAL_CUSTOMER" />
+    </Type>
+  </Table>
+  <Table Name="dbo.PROBLEM" Member="PROBLEMs">
+    <Type Name="PROBLEM">
+      <Column Name="PROBLEM_ID" Type="System.String" DbType="NChar(2) NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="PROBLEM_DISC" Type="System.String" DbType="NVarChar(30) NOT NULL" CanBeNull="false" />
+      <Association Name="PROBLEM_MR_CODE" Member="MR_CODEs" ThisKey="PROBLEM_ID" OtherKey="PROBLEM_ID" Type="MR_CODE" />
+    </Type>
+  </Table>
+  <Table Name="dbo.LAPTOP" Member="LAPTOPs">
+    <Type Name="LAPTOP">
+      <Column Name="LAPTOP_ID" Type="System.String" DbType="NChar(6) NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="LAPTOP_NAME" Type="System.String" DbType="NVarChar(10) NOT NULL" CanBeNull="false" />
+      <Column Name="LAPTOP_MODEL" Type="System.String" DbType="NVarChar(10) NOT NULL" CanBeNull="false" />
+      <Column Name="LAPTOP_SERIAL" Type="System.String" DbType="NVarChar(20) NOT NULL" CanBeNull="false" />
+      <Column Name="LAPTOP_GUARANTY_TYPE" Type="System.String" DbType="NVarChar(10)" CanBeNull="true" />
+      <Association Name="LAPTOP_MR_CODE" Member="MR_CODEs" ThisKey="LAPTOP_ID" OtherKey="LAPTOP_ID" Type="MR_CODE" />
+    </Type>
+  </Table>
+  <Table Name="dbo.CLERK" Member="CLERKs">
+    <Type Name="CLERK">
+      <Column Name="CLERK_ID" Type="System.String" DbType="NChar(10) NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="CLERK_FNAME" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="CLERK_LNAME" Type="System.String" DbType="NVarChar(50) NOT NULL" CanBeNull="false" />
+      <Column Name="CLERK_PROFESSION" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="CLERK_CODE" Type="System.String" DbType="NChar(10) NOT NULL" CanBeNull="false" />
+      <Column Name="CLERK_ADD" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="CLERK_MOBILE" Type="System.String" DbType="NChar(15)" CanBeNull="true" />
+      <Column Name="CLERK_USERNAME" Type="System.String" DbType="NVarChar(18) NOT NULL" CanBeNull="false" />
+      <Column Name="CLERK_PASSWORD" Type="System.String" DbType="NVarChar(18) NOT NULL" CanBeNull="false" />
+      <Association Name="CLERK_WORK_ORDER" Member="WORK_ORDERs" ThisKey="CLERK_ID" OtherKey="CLERK_ID" Type="WORK_ORDER" />
+    </Type>
+  </Table>
+  <Table Name="dbo.TECHNICIAN" Member="TECHNICIANs">
+    <Type Name="TECHNICIAN">
+      <Column Name="TECH_ID" Type="System.String" DbType="NChar(10) NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="TECH_LNAME" Type="System.String" DbType="NVarChar(30) NOT NULL" CanBeNull="false" />
+      <Column Name="TECH_CODE" Type="System.String" DbType="NChar(10) NOT NULL" CanBeNull="false" />
+      <Column Name="TECH_FNAME" Type="System.String" DbType="NVarChar(30) NOT NULL" CanBeNull="false" />
+      <Association Name="TECHNICIAN_WORK_ORDER" Member="WORK_ORDERs" ThisKey="TECH_ID" OtherKey="TECH_ID" Type="WORK_ORDER" />
+    </Type>
+  </Table>
+  <Table Name="dbo.WORK_ORDER" Member="WORK_ORDERs">
+    <Type Name="WORK_ORDER">
+      <Column Name="WO_ID" Type="System.String" DbType="NChar(10) NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="WO_DATE" Type="System.DateTime" DbType="Date NOT NULL" CanBeNull="false" />
+      <Column Name="WO_STARTTIME" Type="System.String" DbType="NVarChar(10)" CanBeNull="true" />
+      <Column Name="WO_DUR" Type="System.String" DbType="NChar(10) NOT NULL" CanBeNull="false" />
+      <Column Name="CLERK_ID" Type="System.String" DbType="NChar(10) NOT NULL" CanBeNull="false" />
+      <Column Name="TECH_ID" Type="System.String" DbType="NChar(10) NOT NULL" CanBeNull="false" />
+      <Column Name="MRC_ID" Type="System.String" DbType="NChar(10) NOT NULL" CanBeNull="false" />
+      <Association Name="CLERK_WORK_ORDER" Member="CLERK" ThisKey="CLERK_ID" OtherKey="CLERK_ID" Type="CLERK" IsForeignKey="true" />
+      <Association Name="TECHNICIAN_WORK_ORDER" Member="TECHNICIAN" ThisKey="TECH_ID" OtherKey="TECH_ID" Type="TECHNICIAN" IsForeignKey="true" />
+      <Association Name="MR_CODE_WORK_ORDER" Member="MR_CODE" ThisKey="MRC_ID" OtherKey="MRC_ID" Type="MR_CODE" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.REAL_CUSTOMER" Member="REAL_CUSTOMERs">
+    <Type Name="REAL_CUSTOMER">
+      <Column Name="RCST_ID" Type="System.String" DbType="NChar(6) NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="RCST_CODE" Type="System.String" DbType="NChar(10) NOT NULL" CanBeNull="false" />
+      <Column Name="RCST_LNAME" Type="System.String" DbType="NVarChar(50) NOT NULL" CanBeNull="false" />
+      <Column Name="RCST_FNAME" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="RCST_MOBILE" Type="System.String" DbType="NChar(11)" CanBeNull="true" />
+      <Column Name="RCST_TEL" Type="System.String" DbType="NChar(15) NOT NULL" CanBeNull="false" />
+      <Column Name="RCST_EMAIL" Type="System.String" DbType="NVarChar(30)" CanBeNull="true" />
+      <Column Name="RCST_ADD" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="LCST_ID" Type="System.String" DbType="NChar(10)" CanBeNull="true" />
+      <Association Name="REAL_CUSTOMER_MR_CODE" Member="MR_CODEs" ThisKey="RCST_ID" OtherKey="RCST_ID" Type="MR_CODE" />
+      <Association Name="LEGAL_CUSTOMER_REAL_CUSTOMER" Member="LEGAL_CUSTOMER" ThisKey="LCST_ID" OtherKey="LCST_ID" Type="LEGAL_CUSTOMER" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.MR_CODE" Member="MR_CODEs">
+    <Type Name="MR_CODE">
+      <Column Name="MRC_ID" Type="System.String" DbType="NChar(10) NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="RCST_ID" Type="System.String" DbType="NChar(6) NOT NULL" CanBeNull="false" />
+      <Column Name="LAPTOP_ID" Type="System.String" DbType="NChar(6) NOT NULL" CanBeNull="false" />
+      <Column Name="PROBLEM_ID" Type="System.String" DbType="NChar(2) NOT NULL" CanBeNull="false" />
+      <Column Name="MRC_SDATE" Type="System.DateTime" DbType="Date NOT NULL" CanBeNull="false" />
+      <Column Name="MRC_FDATE" Type="System.DateTime" DbType="Date" CanBeNull="true" />
+      <Column Name="MRC_Deldate" Type="System.DateTime" DbType="Date" CanBeNull="true" />
+      <Association Name="MR_CODE_WORK_ORDER" Member="WORK_ORDERs" ThisKey="MRC_ID" OtherKey="MRC_ID" Type="WORK_ORDER" />
+      <Association Name="LAPTOP_MR_CODE" Member="LAPTOP" ThisKey="LAPTOP_ID" OtherKey="LAPTOP_ID" Type="LAPTOP" IsForeignKey="true" />
+      <Association Name="PROBLEM_MR_CODE" Member="PROBLEM" ThisKey="PROBLEM_ID" OtherKey="PROBLEM_ID" Type="PROBLEM" IsForeignKey="true" />
+      <Association Name="REAL_CUSTOMER_MR_CODE" Member="REAL_CUSTOMER" ThisKey="RCST_ID" OtherKey="RCST_ID" Type="REAL_CUSTOMER" IsForeignKey="true" />
+    </Type>
+  </Table>
+</Database>
